@@ -13,27 +13,20 @@ import java.util.Date;
 public class WebController {
     @RequestMapping(value = "/",method = RequestMethod.GET)
     public String view(ModelMap model){
-        String author = "Chesnovskaya Anastasia";
-        model.addAttribute("author", author);
+        //String author = "Chesnovskaya Anastasia";
+        //model.addAttribute("author", author);
         return "index";
     }
 
     @RequestMapping(value = "/dateCounting",method = RequestMethod.GET)
     public String dateAndAgeCounting(ModelMap model, @RequestParam(value="date") String strDate){
-        final String BIRTHDAY = "birthday";
-        final String BERROR = "Invalid format of input date";
-        //final String DATE_MSG_FMT = "age is %d years, %d days to next bithday";
-        //Date currentTime=new Date();
-        //String author = "Gleb Mashkanov";
-        //model.addAttribute("author", author);
-        //model.addAttribute("time", currentTime);
-        //model.addAttribute("version", buildVersion);
         DateCount d = new DateCount(strDate);
         String daysToBirthAndYearsOld = d.daysToBirthAndYearsOld();
+        System.out.println(daysToBirthAndYearsOld);
         if (daysToBirthAndYearsOld == null) {
-            model.addAttribute(BIRTHDAY,BERROR);
+            model.addAttribute("daysToBirthAndYearsOld","Invalid format of input date");
         } else {
-            model.addAttribute(BIRTHDAY, daysToBirthAndYearsOld);
+            model.addAttribute("daysToBirthAndYearsOld", daysToBirthAndYearsOld);
         }
         return "index";
     }

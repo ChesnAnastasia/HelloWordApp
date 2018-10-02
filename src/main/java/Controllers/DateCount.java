@@ -81,15 +81,19 @@ public class DateCount {
         int[] dateArr = isDate();
         int[] nullArr = {0,0,0};
 
-        if (dateArr == nullArr) {
+        boolean arr = true;
+        for (int i = 0; i < 3; i++){
+            if (dateArr[i] == nullArr[i]) arr = false;
+        }
+        System.out.println("arr = " + arr);
+
+        if (!arr) {
             System.out.println(false);
             return null;
         }
         else {
             System.out.println(true);
 
-            str = ""+ dateArr[0] + "/" + dateArr[1] + "/" + dateArr[2];
-            System.out.println(str);
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
             Date currentDate = new Date();
@@ -98,26 +102,36 @@ public class DateCount {
             String s = simpleDateFormat.format(calendar.getTime());
             System.out.println(s);
 
+            str = ""+ dateArr[0] + "/" + dateArr[1] + "/" + dateArr[2];
+            System.out.println(str);
+
             try{
-                Date dateC = simpleDateFormat.parse(s);
+                Date dateC = new Date();
                 Date dateB = simpleDateFormat.parse(str);
-                //System.out.println(dateC);
-                //System.out.println(dateB);
-
-                long startTimeD = dateC.getTime();
-                long endTimeD = dateB.getTime();
-                long resultTimeD = endTimeD - startTimeD;
-                long daysToBirth = resultTimeD / (1000 * 60 * 60 * 24);
-                //System.out.println(daysToBirth);
-                //return daysToBirth;
-
-                //изменить год даты
 
                 long startTimeY = dateB.getTime();
                 long endTimeY = dateC.getTime();
                 long resultTimeY = endTimeY - startTimeY;
                 long resultYearsOld = resultTimeY / (1000 * 60 * 60 * 24);
                 resultYearsOld /= 365;
+
+
+                String delimiter = "-|/";
+                String[] dateCurrentArr = s.split(delimiter);
+                int[] dateArrN = {dateArr[0], dateArr[1], Integer.parseInt(dateCurrentArr[2])};
+                dateB = simpleDateFormat.parse("" + dateArrN[0] + "/" + dateArrN[1] + "/" + dateArrN[2]);
+
+
+                long startTimeD = dateC.getTime();
+                long endTimeD = dateB.getTime();
+                long resultTimeD = endTimeD - startTimeD;
+                if (resultTimeD < 0) {
+                    dateArrN[2] += 1;
+                    dateB = simpleDateFormat.parse("" + dateArrN[0] + "/" + dateArrN[1] + "/" + dateArrN[2]);
+                    endTimeD = dateB.getTime();
+                    resultTimeD = endTimeD - startTimeD;
+                }
+                long daysToBirth = resultTimeD / (1000 * 60 * 60 * 24);
 
                 String result = "Age is " + resultYearsOld + " years, " + daysToBirth + " days to next birthday";
                 return result;

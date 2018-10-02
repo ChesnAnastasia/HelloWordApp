@@ -18,9 +18,19 @@
             height: 8%;
             background: rgb(167, 209, 70);
             margin-top: 0;
+            display: flex;
+            align-items: center;
         }
     </style>
-    <h1>by ${author}</h1>
+    <div  style="width: 70%; margin-left: 40%">
+        <h3>by Chesnovskaya Anastasiya</h3>
+    </div>
+    <div  style="width: 5%">
+        <select>
+            <option>En</option>
+            <option>Ru</option>
+        </select>
+    </div>
 </header>
 
 <main>
@@ -32,7 +42,7 @@
             align-items: center;
         }
     </style>
-    <form name="" action="/dateCounting">
+    <form name="test" action="/dateCounting">
         <style>
             form{
                 width: 25%;
@@ -44,11 +54,11 @@
             }
         </style>
         <h4>Input date:</h4>
-        <div>
-            <input type="text" placeholder="date" />
-            <input type="submit" value="Submit">
+        <div class="my-form">
+            <input type="text" size = "20" name="date" width="30%"/>
+            <input type="submit" value="Submit" width="30%">
         </div>
-        <p></p>
+        <p>${daysToBirthAndYearsOld}</p>
     </form>
 </main>
 
@@ -61,6 +71,7 @@
             bottom: 0;
             display: flex;
             justify-content: center;
+            align-items: center;
         }
     </style>
     <fmt:bundle basename="version"><fmt:message key="version"/></fmt:bundle>
